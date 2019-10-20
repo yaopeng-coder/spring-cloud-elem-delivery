@@ -1,4 +1,4 @@
-package cn.hust.VO;
+package cn.hust.order.VO;
 
 import lombok.Data;
 
