@@ -1,4 +1,4 @@
-package cn.hust.VO;
+package cn.hust.product.VO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
