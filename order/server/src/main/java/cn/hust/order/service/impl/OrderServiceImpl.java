@@ -1,11 +1,8 @@
 package cn.hust.order.service.impl;
 
 
-import cn.hust.order.client.ProductClient;
 import cn.hust.order.dataobject.OrderDetail;
 import cn.hust.order.dataobject.OrderMaster;
-import cn.hust.order.dataobject.ProductInfo;
-import cn.hust.order.dto.CartDTO;
 import cn.hust.order.dto.OrderDTO;
 import cn.hust.order.enums.OrderStatusEnum;
 import cn.hust.order.enums.PayStatusEnum;
@@ -13,6 +10,9 @@ import cn.hust.order.repository.OrderDetailRepository;
 import cn.hust.order.repository.OrderMasterRepository;
 import cn.hust.order.service.OrderService;
 import cn.hust.order.utils.KeyUtil;
+import cn.hust.product.client.ProductClient;
+import cn.hust.product.common.DecreaseStockInput;
+import cn.hust.product.common.ProductInfoOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,12 +53,12 @@ public class OrderServiceImpl implements OrderService {
                                      .map(e -> e.getProductId())
                                      .collect(Collectors.toList());
 
-        List<ProductInfo> productInfoList = productClient.listForOrder(productIdList);
+        List<ProductInfoOutput> productInfoList = productClient.listForOrder(productIdList);
 
         // 计算总价
         BigDecimal amount = new BigDecimal(BigInteger.ZERO);
         for(OrderDetail orderDetail: orderDTO.getOrderDetailList()){
-            for(ProductInfo productInfo: productInfoList){
+            for(ProductInfoOutput productInfo: productInfoList){
                 if(productInfo.getProductId().equals(orderDetail.getProductId())){
                     amount = productInfo.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity())).add(amount);
                     BeanUtils.copyProperties(productInfo,orderDetail);
@@ -69,10 +69,10 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         // 减库存（调用商品服务）
-        List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
-                .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
+        List<DecreaseStockInput> decreaseStockInputList = orderDTO.getOrderDetailList().stream()
+                .map(e -> new DecreaseStockInput(e.getProductId(), e.getProductQuantity()))
                 .collect(Collectors.toList());
-        productClient.decreaseStock(cartDTOList);
+        productClient.decreaseStock(decreaseStockInputList);
 
         //订单入库
         OrderMaster orderMaster = new OrderMaster();

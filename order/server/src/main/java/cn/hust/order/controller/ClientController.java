@@ -1,7 +1,5 @@
 package cn.hust.order.controller;
 
-import cn.hust.order.client.ProductClient;
-import cn.hust.order.dataobject.ProductInfo;
 import cn.hust.order.dto.CartDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +7,6 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @program: spring-cloud-elem-delivery
@@ -29,7 +24,7 @@ public class ClientController {
     RestTemplate restTemplate;
 
     @Autowired
-    ProductClient productClient;
+   // ProductClient productClient;
 
     @GetMapping("/getProductMsg")
     public String getProductMsg(){
@@ -48,15 +43,15 @@ public class ClientController {
 
         //使用feign通信
 
-        List<ProductInfo> productInfos = productClient.listForOrder(Arrays.asList("111", "222"));
-        log.info("response={}",productInfos);
+     /*   List<ProductInfo> productInfos = productClient.listForOrder(Arrays.asList("111", "222"));
+        log.info("response={}",productInfos);*/
         return "ok";
     }
 
     @GetMapping("/productDecreaseStock")
     public String productDecreaseStock(){
         CartDTO cartDTO = new CartDTO("111",10);
-        productClient.decreaseStock(Arrays.asList(cartDTO));
+       // productClient.decreaseStock(Arrays.asList(cartDTO));
         return "ok";
     }
 }
