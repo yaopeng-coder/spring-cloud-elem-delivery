@@ -6,8 +6,8 @@ import cn.hust.order.dto.OrderDTO;
 import cn.hust.order.enums.ResultEnum;
 import cn.hust.order.exception.SellException;
 import cn.hust.order.form.OrderForm;
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

@@ -26,7 +26,7 @@ public class ClientController {
     @Autowired
    // ProductClient productClient;
 
-    @GetMapping("/getProductMsg")
+    @GetMapping("/getProductMsg/dd")
     public String getProductMsg(){
 
         //第一种方式(使用RestTemplate,url写死)
@@ -54,4 +54,6 @@ public class ClientController {
        // productClient.decreaseStock(Arrays.asList(cartDTO));
         return "ok";
     }
+
+
 }

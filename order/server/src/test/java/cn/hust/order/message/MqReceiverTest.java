@@ -1,4 +1,4 @@
-package cn.hust.order;
+package cn.hust.order.message;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,18 +11,14 @@ import java.util.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class OrderApplicationTests {
+public class MqReceiverTest {
 
-	@Autowired
-	private AmqpTemplate amqpTemplate;
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
-	@Test
-	public void contextLoads() {
-	}
 
-	@Test
-	public void send(){
-		amqpTemplate.convertAndSend("myQueue","date"+ new Date());
-	}
-
+    @Test
+    public void send(){
+        amqpTemplate.convertAndSend("myQueue","date"+ new Date());
+    }
 }
