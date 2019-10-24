@@ -13,9 +13,11 @@ spring:
           group: order
           content-type: application/json
 
-
   rabbitmq:
       host: 10.11.62.60
       port: 5672
       username: guest
       password: guest
+  redis:
+    host: 10.11.48.193
+    port: 6379
