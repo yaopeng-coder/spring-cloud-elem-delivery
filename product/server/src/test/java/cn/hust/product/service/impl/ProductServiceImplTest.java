@@ -39,4 +39,10 @@ public class ProductServiceImplTest {
         DecreaseStockInput decreaseStockInput = new DecreaseStockInput("111",1);
         productService.decreaseStock(Arrays.asList(decreaseStockInput));
     }
+
+    @Test
+    void aVoid(){
+        System.out.println("ok");
+    }
+
 }
