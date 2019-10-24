@@ -1,0 +1,28 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+spring:
+  application:
+    name: api-gateway
+zuul:
+  routes:
+#      \u5C06 /myProduct/product/list -> /product/product/list
+#    aaaaa:
+#      path: /myProduct/**
+#      serviceId: product
+#    \u7B80\u4ECB\u5199\u6CD5
+    product: /myProduct/**
+#    \u8DEF\u7531\u6392\u9664
+  ignored-patterns:
+      -  /**/product/listForOrder
+management:
+  security:
+    enabled: false
+
+
+
+
