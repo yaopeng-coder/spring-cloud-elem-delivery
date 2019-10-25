@@ -2,9 +2,7 @@ package cn.hust.apigateway.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,11 +38,11 @@ public class TokenFilter extends ZuulFilter {
         HttpServletRequest request = requestContext.getRequest();
 
         //这里可以从url参数中去取，也可以从cookie,header中获取
-        String token = request.getParameter("token");
-        if(StringUtils.isEmpty(token)){
-            requestContext.setSendZuulResponse(false);
-            requestContext.setResponseStatusCode(HttpStatus.SC_UNAUTHORIZED);
-        }
+//        String token = request.getParameter("token");
+//        if(StringUtils.isEmpty(token)){
+//            requestContext.setSendZuulResponse(false);
+//            requestContext.setResponseStatusCode(HttpStatus.SC_UNAUTHORIZED);
+//        }
         return null;
     }
 }
