@@ -9,7 +9,7 @@ spring:
   application:
     name: api-gateway
   redis:
-    host: 10.11.48.193
+    host: 116.62.243.88
     port: 6379
 zuul:
   routes:
@@ -29,6 +29,17 @@ zuul:
 management:
   security:
     enabled: false
+
+#设置zuul超时时间,默认一秒，在访问创建订单这个接口会报错
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+
 
 
 
